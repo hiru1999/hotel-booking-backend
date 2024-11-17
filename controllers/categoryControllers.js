@@ -38,13 +38,45 @@ export function postCategory(req,res){
 //get
 export function getCategory(req,res){
     Category.find().then(
-        (list)=>{
+        (result)=>{
             res.json({
-                list : list
+                categories : result
+            })
+        }
+    ).catch(
+        ()=>{
+            res.status(401).json({
+                message : "Failed to get categories"
             })
         }
     )
 }
+
+//get by name
+export function getCategoryByName(req,res){
+    const name = req.params.name
+    Category.findOne({name:name}).then(
+        (result)=>{
+            if(result == null){
+                res.json({
+                    message : "Category not found"
+                })
+            }else{
+                res.json({
+                    category : "result"
+                })
+            }
+            
+        }
+    ).catch(
+        ()=>{
+            res.status(401).json({
+                message : "Failed to get category"
+            })
+        }
+    )
+}
+
 
 //delete
 export function deleteCategory(req,res){
@@ -76,3 +108,4 @@ export function deleteCategory(req,res){
     )
     
 }
+
