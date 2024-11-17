@@ -5,7 +5,7 @@ import galleryItemRouter from './routes/galleryItemsRoute.js'
 import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
 import categoryRouter from './routes/categoriesRoute.js'
-
+import dotenv from 'dotenv'
 const app = express()
 
 app.use(bodyParser.json())
