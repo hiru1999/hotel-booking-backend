@@ -6,12 +6,15 @@ import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
 import categoryRouter from './routes/categoriesRoute.js'
 import dotenv from 'dotenv'
+
+dotenv.config()
+
 const app = express()
 
 app.use(bodyParser.json())
 
-const connectionString = "mongodb+srv://tester2:456@cluster0.njqb2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
+const connectionString = process.env.MONGO_URL;
+console.log(connectionString)
 
 app.use((req,res,next)=>{
     const token = req.header("Authorization")?.replace
