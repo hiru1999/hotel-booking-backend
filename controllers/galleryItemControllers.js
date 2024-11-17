@@ -16,7 +16,7 @@ export function postGalleryItems(req,res){
         })
         return
     }
-    const galleryItem = req.body.item
+    const galleryItem = req.body
     const newGalleryItem = new GalleryItem(galleryItem)
     newGalleryItem.save().then(
         ()=>{
