@@ -18,15 +18,18 @@ export function postCategory(req,res){
     const category = req.body.item
     const newCategory = new Category(category)
     newCategory.save().then(
-        ()=>{
+        (result)=>{
+
             res.json({
-                message : "Category created successfully"
+                message : "Category created successfully",
+                result : result
             })
         }
     ).catch(
-        ()=>{
+        (err)=>{
             res.status(500).json({
-                message : "Category item creation failed"
+                message : "Category item creation failed",
+                error : err
             })
         }
     )
