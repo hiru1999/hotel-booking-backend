@@ -4,6 +4,7 @@ import userRouter from './routes/usersRoute.js'
 import galleryItemRouter from './routes/galleryItemsRoute.js'
 import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
+import categoryRouter from './routes/categoriesRoute.js'
 
 const app = express()
 
@@ -42,6 +43,7 @@ mongoose.connect(connectionString).then(
 
 app.use("/api/users",userRouter)
 app.use("/api/gallery",galleryItemRouter)
+app.use("/api/category",categoryRouter)
 
 app.listen(5000,(req,res)=>{
     console.log("server is running on port 5000")
