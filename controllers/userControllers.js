@@ -82,6 +82,18 @@ export function loginUser(req,res){
     )
 }
 
+//Validate admin
+export function isAdminValid(req){
+
+    if(req.user == null){
+        return false
+    }
+    if(req.user.type != "admin"){
+        return false
+    }
+    return true;
+}
+
 // //Put
 // export function putUsers(req,res){
     
