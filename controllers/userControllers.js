@@ -94,6 +94,18 @@ export function isAdminValid(req){
     return true;
 }
 
+//Validate customer
+export function isCustomerValid(req){
+
+    if(req.user == null){
+        return false
+    }
+    if(req.user.type != "customer"){
+        return false
+    }
+    return true;
+}
+
 // //Put
 // export function putUsers(req,res){
     
