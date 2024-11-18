@@ -63,7 +63,7 @@ export function getCategoryByName(req,res){
                 })
             }else{
                 res.json({
-                    category : "result"
+                    category : result
                 })
             }
             
