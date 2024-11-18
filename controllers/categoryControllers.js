@@ -78,6 +78,23 @@ export function getCategoryByName(req,res){
 }
 
 
+//update
+export function updateCategory(req,res){
+    if(req.user == null){
+        res.status(401).json({
+            message : "Please login to update a category"
+        })
+        return
+    }
+    if(req.user.type != "admin"){
+        res.status(403).json({
+            message : "You are not authorized to update a category"
+        })
+        return
+    }
+}
+
+
 //delete
 export function deleteCategory(req,res){
     if(req.user == null){
@@ -107,5 +124,16 @@ export function deleteCategory(req,res){
         }
     )
     
+}
+
+//Validate admin
+function isAdminValid(req){
+    if(req.user == null){
+        return false
+    }
+    if(req.user.type != "admin"){
+        return false
+    }
+    return true
 }
 
