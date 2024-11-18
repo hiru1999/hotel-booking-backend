@@ -3,15 +3,9 @@ import Category from "../models/category.js";
 //post - create
 export function postCategory(req,res){
     const user = req.user
-    if(user == null){
-        res.status(403).json({
-            message : "Please login to create a category"
-        })
-        return 
-    }
-    if(user?.type != "admin"){
-        res.status(403).json({
-            message : "You are not authorized to create a category"
+    if (!isAdminValid(req)){
+        res.status(401).json({
+            message : "Unauthorized"
         })
         return
     }
@@ -80,32 +74,35 @@ export function getCategoryByName(req,res){
 
 //update
 export function updateCategory(req,res){
-    if(req.user == null){
+    if (!isAdminValid(req)){
         res.status(401).json({
-            message : "Please login to update a category"
+            message : "Unauthorized"
         })
         return
     }
-    if(req.user.type != "admin"){
-        res.status(403).json({
-            message : "You are not authorized to update a category"
-        })
-        return
-    }
+
+    const name = req.params.name
+    Category.updateOne({name : name},req.body).then(
+        ()=>{
+            res.json({
+                message : "Category updated successfully"
+            })
+        }
+    ).catch(
+        ()=>{
+            res.status(500).json({
+                message : "Category item updation failed"
+            })
+        }
+    )
 }
 
 
 //delete
 export function deleteCategory(req,res){
-    if(req.user == null){
+    if (!isAdminValid(req)){
         res.status(401).json({
-            message : "Please login to delete a category"
-        })
-        return
-    }
-    if(req.user.type != "admin"){
-        res.status(403).json({
-            message : "You are not authorized to delete a category"
+            message : "Unauthorized"
         })
         return
     }
@@ -128,12 +125,13 @@ export function deleteCategory(req,res){
 
 //Validate admin
 function isAdminValid(req){
+
     if(req.user == null){
         return false
     }
     if(req.user.type != "admin"){
         return false
     }
-    return true
+    return true;
 }
 
