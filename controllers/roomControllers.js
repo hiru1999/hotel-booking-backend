@@ -29,3 +29,29 @@ export function createRoom(req,res){
         }
     )
 }
+
+
+//Delete
+export function deleteRoom(req,res){
+    if (!isAdminValid(req)){
+        res.status(401).json({
+            message : "Unauthorized"
+        })
+        return
+    }
+    const roomId = req.params.roomId
+    Room.findOneAndDelete({roomId : roomId}).then(
+        ()=>{
+            res.json({
+                message : "Room deleted successfully"
+            })
+        }
+    ).catch(
+        ()=>{
+            res.status(500).json({
+                message : "Room deletion failed"
+            })
+        }
+    )
+    
+}
