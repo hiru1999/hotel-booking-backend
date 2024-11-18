@@ -31,6 +31,24 @@ export function createRoom(req,res){
 }
 
 
+//get
+export function getRoom(req,res){
+    Room.find().then(
+        (result)=>{
+            res.json({
+                rooms : result
+            })
+        }
+    ).catch(
+        ()=>{
+            res.status(401).json({
+                message : "Failed to get rooms"
+            })
+        }
+    )
+}
+
+
 //Delete
 export function deleteRoom(req,res){
     if (!isAdminValid(req)){
@@ -84,3 +102,4 @@ export function findRoomById(req,res){
         }
     )
 }
+
